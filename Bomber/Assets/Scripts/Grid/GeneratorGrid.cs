@@ -14,6 +14,8 @@ namespace Bomber.Grid
         [SerializeField] private List<PathNode> _pathNodes = new List<PathNode>();
         [SerializeField] private FactoryEnemy _factoryEnemy;
         [SerializeField] private LevelManager _levelManager;
+
+        [SerializeField] private GameObject _placePlayer;
         
         [Header("Prefabs")]
         [SerializeField] GameObject _woodWall;
@@ -32,12 +34,17 @@ namespace Bomber.Grid
                         var cell = Instantiate(_level.Blocks[i * _matric.y + j], new Vector3(transform.position.x + i, 0, transform.position.z + j), Quaternion.identity,transform);
                         SetupObject(cell);
                         _pathNodes.Add(cell.GetComponent<PathNode>());
+                        if (_level.StartPoint.x == i && _level.StartPoint.y == j)
+                        {
+                            _placePlayer = cell.gameObject;
+                        }
                     }
                     else
                     {
                         var cell = Instantiate(_water, new Vector3(transform.position.x + i, -0.5f, transform.position.z + j), Quaternion.identity,transform);
                         _pathNodes.Add(cell.GetComponent<PathNode>());
                     }
+                    
                 }
             }
 
@@ -107,6 +114,11 @@ namespace Bomber.Grid
                     pathNode.AddNeighbour(hit.collider.GetComponent<PathNode>());
                 }
             }
+        }
+
+        public GameObject GetStartPoint() 
+        {
+            return _placePlayer;
         }
 
         

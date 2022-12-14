@@ -21,5 +21,5 @@ public enum TypeObjectOnGround
     SteelWall,
     SpawnerEnemy,
     Star,
-    Exit
+    Exit,
 }

@@ -12,19 +12,23 @@ public class Enemy : MonoBehaviour, IPooledObject
     [SerializeField] private List<PathNode> _wayPoints;
     [SerializeField] private int _counterWay;
     [SerializeField] private float _timeIntervalSearchWay;
+    [SerializeField] private float _timeCooldowmAttack;
     [SerializeField] private PathNode _playerNode;
+    [SerializeField] private bool _flagCDAttak = true;
     private LocatePosition _locatePosition;
     private AnimationEnemy _animationEnemy;
 
     private Player _player;
     private IEnumerator _coroutineMove;
     private IEnumerator _coroutineThink;
+    private IEnumerator _coroutineAttack;
     public TypeObjectInPool TypeObject => _type;
 
 
     public void Setup(PathFinder pathfinder, Player player)
     {
-        _pathFinder = pathfinder;
+        _pathFinder = GetComponent<PathFinder>();
+        //_pathFinder = pathfinder;
         _player = player;
         _locatePosition = GetComponent<LocatePosition>();
         _wayPoints = new List<PathNode>();
@@ -80,7 +84,7 @@ public class Enemy : MonoBehaviour, IPooledObject
             rand = Random.Range(0, neighbours.Count);
         }
         var neighnour = neighbours[rand];
-        while (Vector3.Distance(transform.position, neighnour.transform.position) > 0.2f)
+        while (Vector3.Distance(transform.position, neighnour.transform.position) > 0.7f)
         {
             Vector3 currentPos = new Vector3(neighnour.transform.position.x, transform.position.y, neighnour.transform.position.z);
             transform.position =
@@ -102,9 +106,6 @@ public class Enemy : MonoBehaviour, IPooledObject
         Die();
     }
 
-    public void Update()
-    {
-    }
 
     private void CheckWater()
     {
@@ -117,9 +118,17 @@ public class Enemy : MonoBehaviour, IPooledObject
                 StartCoroutine(CoroutineFall(place));
             }
         }
-        //return flag;
     }
 
+
+    private IEnumerator CoroutineAttack() 
+    {
+        _animationEnemy.StateAttack();
+        _player.TakeDamage(1);
+        yield return new WaitForSeconds(_timeCooldowmAttack);
+        _flagCDAttak = true;
+        CheckPlayerForAttack();
+    }
 
     private IEnumerator ÑoroutineSearchEnemy()
     {
@@ -130,19 +139,15 @@ public class Enemy : MonoBehaviour, IPooledObject
         var placePlayer = _player.GetComponent<LocatePosition>().GetPlace();
         _playerNode = placePlayer.GetComponent<PathNode>();
         _pathFinder.FindPath(place.GetComponent<PathNode>(), placePlayer.GetComponent<PathNode>(), out _wayPoints, this);
-        if (Vector3.Distance(_wayPoints.Last().transform.position, placePlayer.transform.position) > 0.2)
+        if (Vector3.Distance(_wayPoints.Last().transform.position, placePlayer.transform.position) > 0.7)
         {
-            Debug.LogError(_wayPoints.Last());
-            if (Equals(_wayPoints.Last(), placePlayer))
-            {
-                Debug.Log("Êàêàÿ òî õåðíÿ");
-            }
-            Debug.Log("Áðîæó");
+
+            _state = StateEnemy.Wander;
             _coroutineMove = CoroutineWander(place.GetComponent<PathNode>());
         }
         else
         {
-            Debug.Log("íàøåë ïóòü");
+            _state = StateEnemy.Walk;
             _coroutineMove = CoroutineMove(_wayPoints);
         }
         StartCoroutine(_coroutineMove);
@@ -158,9 +163,11 @@ public class Enemy : MonoBehaviour, IPooledObject
     {
         Vector3 playerPos = _player.transform.position;
         Vector3 enemyPos = transform.position;
-        if (Vector3.Distance(playerPos, enemyPos) <= 1)
+        if (Vector3.Distance(playerPos, enemyPos) <= 1 && _flagCDAttak)
         {
-            _animationEnemy.StateAttack();
+            transform.LookAt(_player.transform.position);
+            _flagCDAttak = false;
+            StartCoroutine(CoroutineAttack());
         }
     }
 
@@ -174,5 +181,7 @@ public enum StateEnemy
 {
     Walk,
     Think,
+    Attack,
+    Wander
 
 }

@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     }
     public void Exit() 
     {
-        _level.Win();
+        _level.Win(_health);
     }
 
     public void Die() 

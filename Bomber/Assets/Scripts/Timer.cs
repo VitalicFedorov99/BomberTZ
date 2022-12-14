@@ -14,4 +14,9 @@ public class Timer : MonoBehaviour
         _ui.UpdateTimer(_timer);
     }
 
+    public float GetTimer() 
+    {
+        return _timer;
+    }
+
 }

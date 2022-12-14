@@ -7,6 +7,7 @@ using System;
 public class Level : ScriptableObject
 {
     public Vector2Int SizeLevel;
+    public Vector2Int StartPoint;
     public List<BlockData> Blocks;
 }
 

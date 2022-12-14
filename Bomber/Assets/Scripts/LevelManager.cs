@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int _counterStars;
     [SerializeField] private int _maxStars;
     [SerializeField] private VictoryOrLose _victoryOrLose;
+    [SerializeField] private int _numberLevel;
+    [SerializeField] private Timer _timer;
     public int GetMaxStars()
     {
         return _maxStars;
@@ -27,9 +29,9 @@ public class LevelManager : MonoBehaviour
         _counterStars++;
     }
 
-    public void Win()
+    public void Win(int healthPlayer)
     {
-        _victoryOrLose.WinGame(_counterStars, _maxStars);
+        _victoryOrLose.WinGame(_counterStars, _maxStars, _numberLevel, _timer.GetTimer(), healthPlayer);
     }
 
     public void Lose()

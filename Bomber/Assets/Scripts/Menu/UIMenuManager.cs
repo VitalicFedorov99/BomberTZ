@@ -6,8 +6,8 @@ public class UIMenuManager : MonoBehaviour
 {
     [SerializeField] private LevelPanel _levelPanel;
     [SerializeField] private TweenPanelLevels _twinnerPanel;
-    
-
+    [SerializeField] private GameObject _panelAgainstRaycast;
+    [SerializeField] private float _time;
     public void Exit()
     {
         Application.Quit();
@@ -15,15 +15,23 @@ public class UIMenuManager : MonoBehaviour
 
     public void ClosePanelLevel()
     {
-        _levelPanel.Off();
-        _twinnerPanel.Fade(0);
-        //_levelPanel.SetActive(false);
+        StartCoroutine(CoroutineONOffPanel());
+        StartCoroutine(_twinnerPanel.CoroutineOff(_time));
+        _twinnerPanel.Fade(0, _time);
     }
 
     public void OpenPanelLevel()
     {
-        _levelPanel.Off();
-        _twinnerPanel.Fade(1);
-        //_levelPanel.SetActive(true);
+        
+        StartCoroutine(CoroutineONOffPanel());
+        _twinnerPanel.Fade(1, _time);
+
+    }
+
+    IEnumerator CoroutineONOffPanel()
+    {
+        _panelAgainstRaycast.SetActive(true);
+        yield return new WaitForSeconds(_time);
+        _panelAgainstRaycast.SetActive(false);
     }
 }

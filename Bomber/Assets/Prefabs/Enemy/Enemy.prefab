@@ -648,6 +648,7 @@ GameObject:
   - component: {fileID: 2204318213636419733}
   - component: {fileID: 4257861031196604546}
   - component: {fileID: -8908524711882935033}
+  - component: {fileID: 4790212692764521030}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -734,8 +735,10 @@ MonoBehaviour:
   _type: 0
   _wayPoints: []
   _counterWay: 0
-  _timeIntervalSearchWay: 2
+  _timeIntervalSearchWay: 3
+  _timeCooldowmAttack: 2
   _playerNode: {fileID: 0}
+  _flagCDAttak: 1
 --- !u!65 &4257861031196604546
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -761,6 +764,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a797353fddcd2f64ca19322233a9ac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4790212692764521030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420623738577331605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4170debf0adf444f9c10db48aa85542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toSearch: []
+  _processed: []
+  _result: []
+  _start: {fileID: 0}
+  _end: {fileID: 0}
+  _enemy: {fileID: 0}
 --- !u!1 &6420641189402652307
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,19 +11,26 @@ public class VictoryOrLose : MonoBehaviour
     [SerializeField] private TMP_Text _textResult;
     [SerializeField] private Pause _pause;
     [SerializeField] private float _time;
+    
     public void LoseGame() 
     {
         StartCoroutine(CoroutineLose());
     }
 
-    public void WinGame(int countStars, int maxStars) 
+    public void WinGame(int countStars, int maxStars, int level, float time, int health) 
     {
         _canvasEndGame.SetActive(true);
         _victory.SetActive(true);
         _textResult.text = countStars.ToString() + "/" + maxStars.ToString();
+       
         _pause.OnPause();
     }
     
+
+    private void SaveResult(int countStars, int maxStars, int level, float time, int health) 
+    {
+        //var MaxcountStars =PlayerPrefs.GetInt()
+    }
     private IEnumerator CoroutineLose() 
     {
         yield return new WaitForSeconds(_time);
