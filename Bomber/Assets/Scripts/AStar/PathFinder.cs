@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using System.Linq; 
 public class PathFinder : MonoBehaviour
 {
     [SerializeField] private List<PathNode> _toSearch;
@@ -11,6 +11,7 @@ public class PathFinder : MonoBehaviour
     [SerializeField] private PathNode _start;
     [SerializeField] private PathNode _end;
     [SerializeField] private Enemy _enemy;
+
 
     public List<PathNode> FindPath(PathNode startPoint, PathNode endPoint, out List<PathNode> listResult, Enemy enemy)
     {

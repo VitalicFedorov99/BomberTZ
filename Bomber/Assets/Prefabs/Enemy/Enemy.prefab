@@ -735,6 +735,7 @@ MonoBehaviour:
   _wayPoints: []
   _counterWay: 0
   _timeIntervalSearchWay: 2
+  _playerNode: {fileID: 0}
 --- !u!65 &4257861031196604546
 BoxCollider:
   m_ObjectHideFlags: 0

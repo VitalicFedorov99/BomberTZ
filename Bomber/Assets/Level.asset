@@ -114,6 +114,3 @@ MonoBehaviour:
   - {fileID: 1867459936122577566, guid: 2a5f7f4e4dbc86a4f8d922baa6ec4e34, type: 3}
   - {fileID: 1867459936122577566, guid: 2a5f7f4e4dbc86a4f8d922baa6ec4e34, type: 3}
   - {fileID: 1867459936122577566, guid: 2a5f7f4e4dbc86a4f8d922baa6ec4e34, type: 3}
-  _startPoint: {x: 0, y: 0}
-  _endPoint: {x: 0, y: 0}
-  _enemyPoints: []
