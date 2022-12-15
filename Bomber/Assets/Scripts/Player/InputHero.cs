@@ -37,6 +37,25 @@ namespace Bomber.PlayerSystem
                 _direction = Vector3.zero;
             }
         }
+      
+        public void CreateBomb()
+        {
+            if (_flagCreateBomb)
+            {
+                _flagCreateBomb = false;
+                var bomb = ObjectPool.instance.GetObject(_player.GetCurrentBomb());
+                bomb.transform.position = transform.position;
+                bomb.GetComponent<Bomb>().Setup();
+                StartCoroutine(CoroutineCooldown());
+            }
+        }
+
+
+        public void SwitchBomb()
+        {
+            _player.NextWeapon();
+        }
+
         private void Awake()
         {
             _player = GetComponent<Player>();
@@ -85,24 +104,6 @@ namespace Bomber.PlayerSystem
                     case 0:
                         break;
                 }
-        }
-
-        public void CreateBomb()
-        {
-            if (_flagCreateBomb)
-            {
-                _flagCreateBomb = false;
-                var bomb = ObjectPool.instance.GetObject(_player.GetCurrentBomb());
-                bomb.transform.position = transform.position;
-                bomb.GetComponent<Bomb>().Setup();
-                StartCoroutine(CoroutineCooldown());
-            }
-        }
-
-
-        public void SwitchBomb()
-        {
-            _player.NextWeapon();
         }
 
         private IEnumerator CoroutineCooldown()

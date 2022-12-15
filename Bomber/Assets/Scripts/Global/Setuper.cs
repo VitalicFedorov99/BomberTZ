@@ -29,14 +29,24 @@ namespace Bomber.Global
 
         private void Start()
         {
-            _objectPool.InitPool();
+            _pause.OffPause(); 
             _numberLevel = PlayerPrefs.GetInt(Constant.CurrentLevel, 0);
+            SetupSystem();
+            SetupPlayer();
+        }
+
+        private void SetupSystem() 
+        {
+            _objectPool.InitPool();
             _factoryEnemy.Setup(_player);
-            _generatorGrid.Setup(_levels[_numberLevel - 1],_factoryEnemy,_levelManager);
+            _generatorGrid.Setup(_levels[_numberLevel - 1], _factoryEnemy, _levelManager);
             _factoryEnemy.StartSpawned();
             _uiManager.UpdateCountStars(0, _levelManager.GetMaxStars());
-            _pause.OffPause();
             _levelManager.Setup(_numberLevel, _timer, _victoryOrLose);
+        }
+
+        private void SetupPlayer()
+        {
             var place = _generatorGrid.GetStartPoint();
             _player.transform.position = new Vector3(place.transform.position.x, place.transform.position.y + 1, place.transform.position.z);
             _player.Setup();
