@@ -38,7 +38,7 @@
                     "name": "2D Vector",
                     "id": "bc203969-3d18-487d-8aef-ba967b48d5f2",
                     "path": "2DVector",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
