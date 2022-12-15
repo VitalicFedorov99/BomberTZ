@@ -27,8 +27,8 @@ public class LocatePosition : MonoBehaviour
 
     public List<RaycastHit> SearchObjects()
     {
-        RaycastHit[] objects = Physics.BoxCastAll(transform.position, transform.localScale / 4, transform.up);
-        RaycastHit[] objects1 = Physics.BoxCastAll(transform.position, transform.localScale / 4, -transform.up);
+        RaycastHit[] objects = Physics.BoxCastAll(transform.position, transform.localScale / 3, transform.up);
+        RaycastHit[] objects1 = Physics.BoxCastAll(transform.position, transform.localScale / 3, -transform.up);
         List<RaycastHit> listObjects = new List<RaycastHit>();
         foreach (var obj in objects)
         {

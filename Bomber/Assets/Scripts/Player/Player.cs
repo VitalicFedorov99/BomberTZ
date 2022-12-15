@@ -14,6 +14,8 @@ namespace Bomber.PlayerSystem
         [SerializeField] private UIManager _uiManager;
         [SerializeField] private LevelManager _level;
         [SerializeField] private int _health = 5;
+        [SerializeField] private TwennersInGame _twennersInGame;
+
 
         private int _numberCurrentBomb = 0;
         private PlayerAnimation _playerAnimation;
@@ -34,6 +36,7 @@ namespace Bomber.PlayerSystem
         {
             _health -= damage;
             _playerAnimation.StateTakeDamage();
+            _twennersInGame.Damage();
             if (_health <= 0)
             {
                 Die();

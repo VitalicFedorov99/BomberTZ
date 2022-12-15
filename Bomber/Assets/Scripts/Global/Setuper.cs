@@ -31,6 +31,7 @@ namespace Bomber.Global
         {
             _objectPool.InitPool();
             _numberLevel = PlayerPrefs.GetInt(Constant.CurrentLevel, 0);
+            _factoryEnemy.Setup(_player);
             _generatorGrid.Setup(_levels[_numberLevel - 1],_factoryEnemy,_levelManager);
             _factoryEnemy.StartSpawned();
             _uiManager.UpdateCountStars(0, _levelManager.GetMaxStars());

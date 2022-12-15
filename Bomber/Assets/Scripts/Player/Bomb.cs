@@ -18,11 +18,13 @@ namespace Bomber.PlayerSystem
 
         protected List<RaycastHit> _listBangs;
         private LocatePosition _locatePosition;
+        [SerializeField] private AudioSource _audio;
         public virtual TypeObjectInPool TypeObject => TypeObjectInPool.Bomb;
 
         public void Setup()
         {
             _locatePosition = GetComponent<LocatePosition>();
+            _audio = GetComponent<AudioSource>();
             _listBangs = new List<RaycastHit>();
             StartCoroutine(CoroutuneBang());
         }
@@ -79,6 +81,7 @@ namespace Bomber.PlayerSystem
         }
         private void Bang()
         {
+           
 
             var place = _locatePosition.SearchPlace();
             var neighbours = place.GetComponent<PathNode>().GetNeighbours();
@@ -109,7 +112,10 @@ namespace Bomber.PlayerSystem
 
         private IEnumerator CoroutuneBang()
         {
-            yield return new WaitForSeconds(_timer);
+           
+            yield return new WaitForSeconds(_timer-0.3f);
+            _audio.Play();
+            yield return new WaitForSeconds(0.3f);
             Bang();
         }
 

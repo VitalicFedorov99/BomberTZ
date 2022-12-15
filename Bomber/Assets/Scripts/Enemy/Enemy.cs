@@ -35,7 +35,7 @@ namespace Bomber.Enemies
        
 
 
-        public void Setup(PathFinder pathfinder, Player player)
+        public void Setup(Player player)
         {
             _player = player;
             _wayPoints = new List<PathNode>();

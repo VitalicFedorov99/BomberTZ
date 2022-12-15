@@ -12,14 +12,14 @@ namespace Bomber.Enemies
     public class FactoryEnemy : MonoBehaviour
     {
 
-        [SerializeField] private Player _player;
-        [SerializeField] private PathFinder _pathFinder;
-        [SerializeField] private List<Transform> _places;
         [SerializeField] private float _time;
+        private Player _player;
+        private List<Transform> _places;
 
-        public void Setup()
+        public void Setup(Player player)
         {
             _places = new List<Transform>();
+            _player = player;
         }
 
         public void AddPlace(Transform place)
@@ -38,7 +38,7 @@ namespace Bomber.Enemies
                 var rand = Random.Range(0, _places.Count);
                 GameObject enemy = ObjectPool.instance.GetObject(TypeObjectInPool.EnemyRed);
                 enemy.transform.position = new Vector3(_places[rand].position.x, _places[rand].position.y + 0.1f, _places[rand].position.z);
-                enemy.GetComponent<Enemy>().Setup(_pathFinder, _player);
+                enemy.GetComponent<Enemy>().Setup(_player);
             }
         }
 

@@ -20,11 +20,7 @@ namespace Bomber.PlayerSystem
         private Vector3 _direction = Vector3.zero;
         private Vector3 _movement = Vector3.zero;
         private bool _flagCreateBomb = true;
-        private Rigidbody _rg;
-        private BoxCollider _coll;
-        RaycastHit m_Hit;
-        bool m_HitDetect;
-        float m_MaxDistance = 300f;
+      
 
 
         public void Move(InputAction.CallbackContext context)
@@ -43,8 +39,6 @@ namespace Bomber.PlayerSystem
         }
         private void Awake()
         {
-            _rg = GetComponent<Rigidbody>();
-            _coll = GetComponent<BoxCollider>();
             _player = GetComponent<Player>();
         }
 
@@ -65,12 +59,6 @@ namespace Bomber.PlayerSystem
             }
             transform.Translate(new Vector3(0, 0, Mathf.Abs(_movement.z)) * _speed * Time.deltaTime);
         }
-
-        void FixedUpdate()
-        {
-            m_HitDetect = Physics.BoxCast(_coll.bounds.center, transform.localScale, transform.forward, out m_Hit, transform.rotation, m_MaxDistance); ;
-        }
-
         private void Rotation(Vector3 movement)
         {
             if (movement.x != 0)
@@ -125,20 +113,7 @@ namespace Bomber.PlayerSystem
 
         }
 
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red; 
-            if (m_HitDetect)
-            { 
-                Gizmos.DrawRay(transform.position, transform.forward * m_Hit.distance);
-                Gizmos.DrawWireCube(transform.position + transform.forward * m_Hit.distance, transform.localScale);
-            }  
-            else
-            {
-                Gizmos.DrawRay(transform.position, _movement * m_MaxDistance);
-                Gizmos.DrawWireCube(transform.position + transform.forward * m_MaxDistance, transform.localScale);
-            }
-        }
+       
     }
 }
 
