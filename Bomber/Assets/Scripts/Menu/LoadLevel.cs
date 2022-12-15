@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class LoadLevel : MonoBehaviour
+
+namespace Bomber.Menu
 {
-
-
-    [SerializeField] private string _nameScene;
-
-
-    public void Load()
+    public class LoadLevel : MonoBehaviour
     {
-        SceneManager.LoadScene(_nameScene);
+        [SerializeField] private int _numberLevel;
+        public void Load()
+        {
+            PlayerPrefs.SetInt(Constant.CurrentLevel, _numberLevel);
+            SceneManager.LoadScene(Constant.SceneGame);
+        }
     }
 }

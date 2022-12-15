@@ -23,8 +23,9 @@ namespace Bomber.Grid
         [SerializeField] GameObject _bridge;
         [SerializeField] GameObject _iceBlock;
        
-        public void Setup()
+        public void Setup(Level currentLevel)
         {
+            _level = currentLevel;
             for (int i = 0; i < _matric.x; i++)
             {
                 for (int j = 0; j < _matric.y; j++)

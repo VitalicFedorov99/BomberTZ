@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private int _counterStars;
-    [SerializeField] private int _maxStars;
-    [SerializeField] private VictoryOrLose _victoryOrLose;
-    [SerializeField] private int _numberLevel;
-    [SerializeField] private Timer _timer;
+    private int _counterStars;
+    private int _maxStars;
+    private VictoryOrLose _victoryOrLose;
+    private int _numberLevel;
+    private Timer _timer;
+
+
+    public void Setup(int level, Timer timer, VictoryOrLose victoryOrLose)
+    {
+        _numberLevel = level;
+        _timer = timer;
+        _victoryOrLose = victoryOrLose;
+    }
+
     public int GetMaxStars()
     {
         return _maxStars;

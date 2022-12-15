@@ -7,11 +7,11 @@ public class ActionEndGame : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(Constant.SceneGame);
     }
 
     public void Menu() 
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene(Constant.SceneMenu);
     }
 }
