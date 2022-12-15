@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _distanceBang: 1
   _timer: 2
-  _typeEffect: 4
+  _typeEffect: 3
   _effects: {fileID: 0}
 --- !u!114 &-1321074198035739262
 MonoBehaviour:

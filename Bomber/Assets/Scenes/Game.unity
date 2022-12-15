@@ -287,19 +287,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectsInfo:
-  - TypeObject: 2
+  - TypeObject: 1
     Prefab: {fileID: 232272764655687746, guid: 325d3b92d75510a4c97f11c64e825cae, type: 3}
     StartCount: 5
-  - TypeObject: 3
+  - TypeObject: 2
     Prefab: {fileID: 7642205275802828178, guid: d1f2b23aad7233c43b3fca3b532adbbb, type: 3}
     StartCount: 5
-  - TypeObject: 4
+  - TypeObject: 3
     Prefab: {fileID: 2829016994991598930, guid: e7684821ce512ed4ba5d6747349d0278, type: 3}
     StartCount: 5
   - TypeObject: 0
     Prefab: {fileID: 6420623738577331605, guid: 6bd15f820fd373c4e852dbaab9fea538, type: 3}
     StartCount: 5
-  - TypeObject: 5
+  - TypeObject: 4
     Prefab: {fileID: 4340638814542266161, guid: 237e2e419caf88945994d784a11c1866, type: 3}
     StartCount: 5
 --- !u!4 &50701755
@@ -1026,10 +1026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 2105309889}
-  countUnit: 0
   _pathFinder: {fileID: 0}
-  _enemes:
-  - {fileID: 2204318213636419733, guid: 6bd15f820fd373c4e852dbaab9fea538, type: 3}
   _places: []
   _time: 10
 --- !u!4 &598960417
@@ -3625,7 +3622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1142c1f8014a4a04fa36d4cb61398af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentBomb: 2
+  _currentBomb: 1
   _countBomb: 2
   _uiManager: {fileID: 933167920}
   _level: {fileID: 322222164}
@@ -3644,7 +3641,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 1
   _speed: 2
-  _test: {fileID: 0}
 --- !u!65 &2105309891
 BoxCollider:
   m_ObjectHideFlags: 0

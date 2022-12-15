@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPooledObject
-{
-    TypeObjectInPool TypeObject { get; }
 
-    void DestroyObject();
+namespace Bomber.ObjectPooled
+{
+    public interface IPooledObject
+    {
+        TypeObjectInPool TypeObject { get; }
+
+        void DestroyObject();
+    }
 }

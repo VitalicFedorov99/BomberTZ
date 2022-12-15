@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BlockData : MonoBehaviour
 {
-    //[SerializeField] private GameObject _prefab;
     [SerializeField] private TypeBlock _type;
     
     public TypeBlock GetTypeBlock() 

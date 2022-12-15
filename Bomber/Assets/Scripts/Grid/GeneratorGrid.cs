@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bomber.Pathfinder;
+using Bomber.Enemies;
+using Bomber.Global;
 
 namespace Bomber.Grid
 {
     public class GeneratorGrid : MonoBehaviour
     {
         [SerializeField] private GameObject _prefabGrid;
-        [SerializeField] private Vector2Int _matric;
-        [SerializeField] private Level _level;
         [SerializeField] private BlockData _water;
         [SerializeField] private List<PathNode> _pathNodes = new List<PathNode>();
-        [SerializeField] private FactoryEnemy _factoryEnemy;
-        [SerializeField] private LevelManager _levelManager;
+
+        private Level _level;
+        private FactoryEnemy _factoryEnemy;
+        private LevelManager _levelManager;
 
         [SerializeField] private GameObject _placePlayer;
         
@@ -21,18 +24,19 @@ namespace Bomber.Grid
         [SerializeField] GameObject _woodWall;
         [SerializeField] GameObject _steelWall;
         [SerializeField] GameObject _bridge;
-        [SerializeField] GameObject _iceBlock;
        
-        public void Setup(Level currentLevel)
+        public void Setup(Level currentLevel, FactoryEnemy factoryEnemy, LevelManager levelManager)
         {
             _level = currentLevel;
-            for (int i = 0; i < _matric.x; i++)
+            _factoryEnemy = factoryEnemy;
+            _levelManager = levelManager;
+            for (int i = 0; i <_level.SizeLevel.x; i++)
             {
-                for (int j = 0; j < _matric.y; j++)
+                for (int j = 0; j < _level.SizeLevel.y; j++)
                 {
-                    if (_level.Blocks[i * _matric.y + j] != null)
+                    if (_level.Blocks[i * _level.SizeLevel.y + j] != null)
                     {
-                        var cell = Instantiate(_level.Blocks[i * _matric.y + j], new Vector3(transform.position.x + i, 0, transform.position.z + j), Quaternion.identity,transform);
+                        var cell = Instantiate(_level.Blocks[i * _level.SizeLevel.y + j], new Vector3(transform.position.x + i, 0, transform.position.z + j), Quaternion.identity,transform);
                         SetupObject(cell);
                         _pathNodes.Add(cell.GetComponent<PathNode>());
                         if (_level.StartPoint.x == i && _level.StartPoint.y == j)

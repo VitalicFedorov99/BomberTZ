@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bomber.Pathfinder;
+
+
 public class Water : MonoBehaviour
 {
     [SerializeField] private GameObject _IceBlock;

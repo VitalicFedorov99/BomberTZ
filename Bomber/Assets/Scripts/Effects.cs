@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bomber.ObjectPooled;
+
 public class Effects : MonoBehaviour, IPooledObject
 {
     [SerializeField] private TypeObjectInPool _type;
@@ -16,7 +18,6 @@ public class Effects : MonoBehaviour, IPooledObject
     }
     public void CreateEffect(Transform pos) 
     {
-       // Debug.Log("Я вызлвался");
         transform.position = pos.position;
         _particle.Play();
         StartCoroutine(CoroutineTimerEffect());
