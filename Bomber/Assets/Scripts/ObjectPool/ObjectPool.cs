@@ -46,7 +46,6 @@ namespace Bomber.ObjectPooled
             if (_pools[type].Objects.Count > 0)
             {
                 obj = _pools[type].Objects.Dequeue();
-                //Debug.LogError("ХЗ Почему не вытаскивается");
             }
             else
             {

@@ -96,7 +96,7 @@ SphereCollider:
   m_GameObject: {fileID: 232272764655687746}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timer: 2
   _typeEffect: 4
+  _audio: {fileID: 0}
 --- !u!114 &-5030057804244116142
 MonoBehaviour:
   m_ObjectHideFlags: 0

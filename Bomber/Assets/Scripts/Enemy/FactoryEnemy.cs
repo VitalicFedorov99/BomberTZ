@@ -37,7 +37,7 @@ namespace Bomber.Enemies
             {
                 var rand = Random.Range(0, _places.Count);
                 GameObject enemy = ObjectPool.instance.GetObject(TypeObjectInPool.EnemyRed);
-                enemy.transform.position = new Vector3(_places[rand].position.x, _places[rand].position.y + 0.1f, _places[rand].position.z);
+                enemy.transform.position = new Vector3(_places[rand].position.x, _places[rand].position.y + 0.3f, _places[rand].position.z);
                 enemy.GetComponent<Enemy>().Setup(_player);
             }
         }

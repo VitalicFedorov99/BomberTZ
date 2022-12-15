@@ -22,8 +22,13 @@ namespace Bomber.Pathfinder
             var currentHex = _toSearch[0];
             while (currentHex != endPoint)
             {
+                if (_toSearch.Count == 0)
+                {
+                    Debug.Log("Спасаюсь");
+                    break;
+                }
                 currentHex = _toSearch[0];
-
+               
                 foreach (var t in _toSearch)
                 {
                     bool flag1 = Vector3.Distance(new Vector3(currentHex.transform.position.x, 0, currentHex.transform.position.z), new Vector3(endPoint.transform.position.x, 0, endPoint.transform.position.z))
