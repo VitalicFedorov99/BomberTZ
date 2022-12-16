@@ -44,8 +44,9 @@ namespace Bomber.Enemies
 
         private IEnumerator CoroutineSpawn()
         {
+            yield return new WaitForSeconds(1f);
             CreateUnit();
-            yield return new WaitForSeconds(_time);
+            yield return new WaitForSeconds(_time-1f);
             StartCoroutine(CoroutineSpawn());
         }
 

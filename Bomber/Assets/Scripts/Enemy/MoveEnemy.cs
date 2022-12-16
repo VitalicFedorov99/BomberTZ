@@ -15,10 +15,10 @@ namespace Bomber.Enemies
 
 
         [SerializeField] private float _speed;
-        [SerializeField] private LocatePosition _playerPosition;
         [SerializeField] private List<PathNode> _wayPoints;
         [SerializeField] private float _timeIntervalSearchWay;
-        
+
+        private LocatePosition _playerPosition;
         private PathFinder _pathFinder;
         private LocatePosition _locatePosition;
         private int _counterWay;
@@ -52,7 +52,7 @@ namespace Bomber.Enemies
 
         private IEnumerator CoroutineMove(List<PathNode> wayPoints)
         {
-            if (wayPoints.Count > 0)
+            if (wayPoints.Count > 1)
             {
                 _counterWay = wayPoints.Count;
                 int i = 0;
@@ -67,7 +67,14 @@ namespace Bomber.Enemies
                     if ((Vector3.Distance(transform.position, currentPos) < 0.1f && i < _counterWay))
                     {
                         i++;
-                        currentPoint = wayPoints[i];
+                        if (i < _wayPoints.Count)
+                        {
+                            currentPoint = wayPoints[i];
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                     yield return null;
                 }
@@ -119,5 +126,5 @@ namespace Bomber.Enemies
         }
     }
 
- 
+
 }

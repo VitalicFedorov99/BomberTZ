@@ -646,10 +646,10 @@ GameObject:
   - component: {fileID: 6363475025308598445}
   - component: {fileID: 4379564306358154234}
   - component: {fileID: 2204318213636419733}
-  - component: {fileID: 4257861031196604546}
   - component: {fileID: -8908524711882935033}
   - component: {fileID: 4790212692764521030}
   - component: {fileID: 7652347633428320804}
+  - component: {fileID: 4257861031196604546}
   - component: {fileID: -3220430901750826647}
   m_Layer: 0
   m_Name: Enemy
@@ -733,21 +733,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeCooldowmAttack: 2
   _timeDie: 1
-  _player: {fileID: 0}
-  _move: {fileID: 7652347633428320804}
---- !u!65 &4257861031196604546
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6420623738577331605}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.1098802, z: 1}
-  m_Center: {x: 0, y: 0.5033244, z: 0}
 --- !u!114 &-8908524711882935033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,6 +775,19 @@ MonoBehaviour:
   _playerPosition: {fileID: 0}
   _wayPoints: []
   _timeIntervalSearchWay: 2
+--- !u!65 &4257861031196604546
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420623738577331605}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.1098802, z: 1}
+  m_Center: {x: 0, y: 0.5033244, z: 0}
 --- !u!54 &-3220430901750826647
 Rigidbody:
   m_ObjectHideFlags: 0

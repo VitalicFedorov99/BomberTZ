@@ -18,7 +18,7 @@ namespace Bomber.PlayerSystem
 
         protected List<RaycastHit> _listBangs;
         private LocatePosition _locatePosition;
-        [SerializeField] private AudioSource _audio;
+        private AudioSource _audio;
         public virtual TypeObjectInPool TypeObject => TypeObjectInPool.Bomb;
 
         public void Setup()
@@ -34,6 +34,7 @@ namespace Bomber.PlayerSystem
         {
             if (hit.collider.TryGetComponent(out Water water))
             {
+                Debug.Log("Нашел воду");
                 if (!_listBangs.Contains(hit))
                 {
                     _listBangs.Add(hit);

@@ -22,7 +22,7 @@ namespace Bomber.PlayerSystem
                     _listBangs.Add(hit);
 
                 }
-                if (water.GetStateWaterBlock() == StateWaterBlock.Nun)
+                if (water.GetTypeObjectOnWater() == TypeObjectOnWater.Nun)
                 {
                     water.CreateIce();
                 }

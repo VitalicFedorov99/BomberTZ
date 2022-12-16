@@ -2,9 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ground : MonoBehaviour
+using Bomber.Pathfinder;
+using Bomber.ObjectPooled;
+
+public class Ground : MonoBehaviour, IPooledObject
 {
     [SerializeField] private TypeObjectOnGround _typeObjecOnGround;
+
+    public TypeObjectInPool TypeObject => TypeObjectInPool.Ground;
+
+    public void DestroyObject()
+    {
+        ObjectPool.instance.DestroyObject(gameObject);
+    }
 
     public TypeObjectOnGround GetTypeObjectOnGround() 
     {
@@ -14,11 +24,13 @@ public class Ground : MonoBehaviour
 
 
 
+
+
 public enum TypeObjectOnGround 
 {
     Nun,
     WoodenWall,
-    SteelWall,
+    MetalWall,
     SpawnerEnemy,
     Star,
     Exit,

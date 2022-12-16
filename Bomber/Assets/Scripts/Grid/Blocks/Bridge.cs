@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bridge : MonoBehaviour
+
+using Bomber.ObjectPooled;
+public class Bridge : MonoBehaviour, IPooledObject
 {
+    public TypeObjectInPool TypeObject => TypeObjectInPool.Bridge;
+
+    public void DestroyObject()
+    {
+        ObjectPool.instance.DestroyObject(gameObject);
+    }
 }

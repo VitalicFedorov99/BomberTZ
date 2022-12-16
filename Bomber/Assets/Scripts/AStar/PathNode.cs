@@ -18,8 +18,7 @@ namespace Bomber.Pathfinder
 
         public void AddNeighbour(PathNode neighbour)
         {
-            if (neighbour != this && neighbour != null && !_neighbours.Contains(neighbour))
-                _neighbours.Add(neighbour);
+            _neighbours.Add(neighbour);
         }
 
         public void SetStatePathNode(StatePathNode state)

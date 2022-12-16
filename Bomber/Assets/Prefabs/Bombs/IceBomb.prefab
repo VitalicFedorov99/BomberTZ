@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timer: 2
-  _typeEffect: 3
+  _typeEffect: 5
   _audio: {fileID: 0}
 --- !u!114 &-1321074198035739262
 MonoBehaviour:

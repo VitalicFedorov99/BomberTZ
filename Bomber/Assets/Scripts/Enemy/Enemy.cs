@@ -58,9 +58,9 @@ namespace Bomber.Enemies
         public void Die()
         {
             _isDead = true;
-            _animationEnemy.StateDie();
             _move.MoveStop();
             StopAllCoroutines();
+            _animationEnemy.StateDie();
             StartCoroutine(CoroutineDead());
         }
 

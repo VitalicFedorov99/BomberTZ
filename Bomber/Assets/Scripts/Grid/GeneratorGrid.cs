@@ -5,13 +5,15 @@ using UnityEngine;
 using Bomber.Pathfinder;
 using Bomber.Enemies;
 using Bomber.Global;
+using Bomber.ObjectPooled;
 
 namespace Bomber.Grid
 {
     public class GeneratorGrid : MonoBehaviour
     {
-        [SerializeField] private GameObject _prefabGrid;
-        [SerializeField] private BlockData _water;
+
+
+
         [SerializeField] private List<PathNode> _pathNodes = new List<PathNode>();
 
         private Level _level;
@@ -19,113 +21,119 @@ namespace Bomber.Grid
         private LevelManager _levelManager;
 
         [SerializeField] private GameObject _placePlayer;
-        
-        [Header("Prefabs")]
-        [SerializeField] GameObject _woodWall;
-        [SerializeField] GameObject _steelWall;
-        [SerializeField] GameObject _bridge;
-       
+
+
         public void Setup(Level currentLevel, FactoryEnemy factoryEnemy, LevelManager levelManager)
         {
             _level = currentLevel;
             _factoryEnemy = factoryEnemy;
             _levelManager = levelManager;
-            for (int i = 0; i <_level.SizeLevel.x; i++)
+            for (int i = 0; i < _level.SizeLevel.x; i++)
             {
                 for (int j = 0; j < _level.SizeLevel.y; j++)
                 {
-                    if (_level.Blocks[i * _level.SizeLevel.y + j] != null)
+
+                    var cell = ObjectPool.instance.GetObject(_level.Blocks[i * _level.SizeLevel.y + j].TypeBlockInObjectPool);
+                    _pathNodes.Add(cell.GetComponent<PathNode>());
+                    if (cell.TryGetComponent(out Water water))
                     {
-                        var cell = Instantiate(_level.Blocks[i * _level.SizeLevel.y + j], new Vector3(transform.position.x + i, 0, transform.position.z + j), Quaternion.identity,transform);
-                        SetupObject(cell);
-                        _pathNodes.Add(cell.GetComponent<PathNode>());
-                        if (_level.StartPoint.x == i && _level.StartPoint.y == j)
-                        {
-                            _placePlayer = cell.gameObject;
-                        }
+                        SetupWaterBlock(water, i, j);
                     }
-                    else
+                    if (cell.TryGetComponent(out Ground ground))
                     {
-                        var cell = Instantiate(_water, new Vector3(transform.position.x + i, -0.5f, transform.position.z + j), Quaternion.identity,transform);
-                        _pathNodes.Add(cell.GetComponent<PathNode>());
+                        SetupGroundBlock(ground, i, j);
                     }
-                    
+                    if (_level.StartPoint.x == i && _level.StartPoint.y == j)
+                    {
+                        _placePlayer = cell;
+                    }
                 }
             }
-
             SetupNeghbours();
         }
-
-        public void SetupObject(BlockData block)
+        public void SetupWaterBlock(Water water, int i, int j)
         {
-            if (block.GetTypeBlock() == TypeBlock.Ground)
+            water.transform.position = new Vector3(transform.position.x + i, -0.5f, transform.position.z + j);
+            switch (_level.Blocks[i * _level.SizeLevel.y + j].WaterObject)
             {
-                if (block.GetComponent<Ground>().GetTypeObjectOnGround() == TypeObjectOnGround.WoodenWall)
-                {
-                    var wall = Instantiate(_woodWall, new Vector3(block.transform.position.x, block.transform.position.y + 1, block.transform.position.z), Quaternion.identity,transform);
-                }
-                if (block.GetComponent<Ground>().GetTypeObjectOnGround() == TypeObjectOnGround.SteelWall)
-                {
-                    var wall = Instantiate(_steelWall, new Vector3(block.transform.position.x, block.transform.position.y + 0.5f, block.transform.position.z), Quaternion.identity,transform);
-                }
-                if(block.GetComponent<Ground>().GetTypeObjectOnGround() == TypeObjectOnGround.SpawnerEnemy) 
-                {
-                    _factoryEnemy.AddPlace(block.transform);
-                }
-                if (block.GetComponent<Ground>().GetTypeObjectOnGround() == TypeObjectOnGround.Star) 
-                {
-                    _levelManager.AddMaxStars();
-                }
-                
-            }
-            if (block.GetTypeBlock() == TypeBlock.Water)
-            {
-                block.transform.position = new Vector3(block.transform.position.x, -0.5f, block.transform.position.z);
-                if (block.GetComponent<Water>().GetStateWaterBlock() == StateWaterBlock.Bridge)
-                {
+                case TypeObjectOnWater.Bridge:
+                    CreateObject(TypeObjectInPool.Bridge, water.transform, 0.5f);
+                    break;
+                case TypeObjectOnWater.Ice:
+                    water.CreateIce();
+                    break;
 
-                    var bridge = Instantiate(_bridge, new Vector3(block.transform.position.x, block.transform.position.y + 0.5f, block.transform.position.z), Quaternion.identity);
-                }
-                if (block.GetComponent<Water>().GetStateWaterBlock() == StateWaterBlock.Ice)
-                {
-                    block.GetComponent<Water>().CreateIce();
-                }
             }
         }
 
+        public void SetupGroundBlock(Ground ground, int i, int j)
+        {
+            ground.transform.position = new Vector3(transform.position.x + i, 0, transform.position.z + j);
+            switch (_level.Blocks[i * _level.SizeLevel.y + j].GroundObject)
+            {
+                case TypeObjectOnGround.WoodenWall:
+                    CreateObject(TypeObjectInPool.WoodWall, ground.transform, 1);
+                    break;
+                case TypeObjectOnGround.MetalWall:
+                    CreateObject(TypeObjectInPool.MetalWall, ground.transform, 0.5f);
+                    break;
+                case TypeObjectOnGround.SpawnerEnemy:
+                    CreateObject(TypeObjectInPool.EnemySpawn, ground.transform, 0);
+                    _factoryEnemy.AddPlace(ground.transform);
+                    break;
+                case TypeObjectOnGround.Star:
+                    CreateObject(TypeObjectInPool.Star, ground.transform, 0.5f);
+                    _levelManager.AddMaxStars();
+                    break;
+                case TypeObjectOnGround.Exit:
+                    CreateObject(TypeObjectInPool.Exit, ground.transform, 0f);
+                    break;
+            }
+        }
+
+        public GameObject CreateObject(TypeObjectInPool type, Transform place, float offsetY)
+        {
+            var obj = ObjectPool.instance.GetObject(type);
+            obj.transform.position = new Vector3(place.position.x, place.position.y + offsetY, place.transform.position.z);
+            return obj;
+        }
+        
         public void SetupNeghbours()
         {
-            foreach (PathNode pathNode in _pathNodes)
+            for (int i = 0; i < _pathNodes.Count; i++)
             {
-                RaycastHit[] hitsHorizontal = Physics.RaycastAll(new Vector3(pathNode.transform.position.x - 2, pathNode.transform.position.y, pathNode.transform.position.z), Vector3.right, 3);
-                RaycastHit[] hitsVertical = Physics.RaycastAll(new Vector3(pathNode.transform.position.x, pathNode.transform.position.y, pathNode.transform.position.z - 2), Vector3.forward, 3);
-                RaycastHit[] hitsHorizontal2 = Physics.RaycastAll(new Vector3(pathNode.transform.position.x -  2, pathNode.transform.position.y - 1, pathNode.transform.position.z), Vector3.right,3);
-                RaycastHit[] hitsVertical2 = Physics.RaycastAll(new Vector3(pathNode.transform.position.x, pathNode.transform.position.y - 1, pathNode.transform.position.z - 2), Vector3.forward,3);
+                _pathNodes[i].name = i.ToString();
+                int idUp = i + 1;
+                if (idUp % _level.SizeLevel.y != 0 && idUp < _pathNodes.Count)
+                {
+                    _pathNodes[i].AddNeighbour(_pathNodes[idUp]);
+                }
 
-                foreach(var hit in hitsHorizontal) 
+                int idDown = i - 1;
+                if (i % _level.SizeLevel.y != 0)
                 {
-                    pathNode.AddNeighbour(hit.collider.GetComponent<PathNode>());
+                    _pathNodes[i].AddNeighbour(_pathNodes[idDown]);
                 }
-                foreach (var hit in hitsHorizontal2)
+
+                int idRight = i + _level.SizeLevel.y;
+                if (idRight < _pathNodes.Count)
                 {
-                    pathNode.AddNeighbour(hit.collider.GetComponent<PathNode>());
+                    _pathNodes[i].AddNeighbour(_pathNodes[idRight]);
                 }
-                foreach (var hit in hitsVertical)
+                int idLeft = i - _level.SizeLevel.y;
+                if (idLeft >= 0)
                 {
-                    pathNode.AddNeighbour(hit.collider.GetComponent<PathNode>());
-                }
-                foreach (var hit in hitsVertical2)
-                {
-                    pathNode.AddNeighbour(hit.collider.GetComponent<PathNode>());
+                    _pathNodes[i].AddNeighbour(_pathNodes[idLeft]);
                 }
             }
         }
 
-        public GameObject GetStartPoint() 
+        public GameObject GetStartPoint()
         {
             return _placePlayer;
         }
 
-        
+
+
     }
 }

@@ -72,11 +72,19 @@ namespace Bomber.ObjectPooled
 
     public enum TypeObjectInPool
     {
+        Ground,
+        Water,
         EnemyRed,
         Bomb,
         IceBomb,
         IceEffect,
-        FireEffect
+        FireEffect,
+        Bridge,
+        MetalWall,
+        WoodWall,
+        EnemySpawn,
+        Star,
+        Exit
     }
 
     [Serializable]

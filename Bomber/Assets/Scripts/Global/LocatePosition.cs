@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LocatePosition : MonoBehaviour
 {
-    [SerializeField] private GameObject _place;
+    private GameObject _place;
 
 
     public GameObject SearchPlace()
@@ -41,27 +41,12 @@ public class LocatePosition : MonoBehaviour
 
         return listObjects;
     }
-    public void TestSearchPlace()
-    {
-        RaycastHit[] hitsHorizontalGround = Physics.RaycastAll(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(transform.position.x, transform.position.y * (-3), transform.position.z));
-        foreach (var hit in hitsHorizontalGround)
-        {
-            if (hit.collider.TryGetComponent(out BlockData block))
-            {
-                _place = block.gameObject;
-            }
-        }
-
-
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-
-    }
     public GameObject GetPlace()
     {
         return _place;
     }
+   
+
+
 
 }

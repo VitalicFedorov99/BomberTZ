@@ -287,21 +287,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectsInfo:
-  - TypeObject: 1
+  - TypeObject: 3
     Prefab: {fileID: 232272764655687746, guid: 325d3b92d75510a4c97f11c64e825cae, type: 3}
     StartCount: 5
-  - TypeObject: 2
+  - TypeObject: 4
     Prefab: {fileID: 7642205275802828178, guid: d1f2b23aad7233c43b3fca3b532adbbb, type: 3}
     StartCount: 5
-  - TypeObject: 3
+  - TypeObject: 5
     Prefab: {fileID: 2829016994991598930, guid: e7684821ce512ed4ba5d6747349d0278, type: 3}
     StartCount: 5
-  - TypeObject: 0
+  - TypeObject: 2
     Prefab: {fileID: 6420623738577331605, guid: 6bd15f820fd373c4e852dbaab9fea538, type: 3}
     StartCount: 5
-  - TypeObject: 4
+  - TypeObject: 6
     Prefab: {fileID: 4340638814542266161, guid: 237e2e419caf88945994d784a11c1866, type: 3}
     StartCount: 5
+  - TypeObject: 1
+    Prefab: {fileID: 6014361238677813658, guid: c4cca001ded1c26479932e96c43ff2de, type: 3}
+    StartCount: 5
+  - TypeObject: 0
+    Prefab: {fileID: 1617262784308411789, guid: 2a5f7f4e4dbc86a4f8d922baa6ec4e34, type: 3}
+    StartCount: 5
+  - TypeObject: 8
+    Prefab: {fileID: 4991437539065556737, guid: b0a35188ef0549145ab8e4a0de2e8288, type: 3}
+    StartCount: 5
+  - TypeObject: 9
+    Prefab: {fileID: 5430552175080372912, guid: d5ce76dd942b982438ba4a85d24bb9e4, type: 3}
+    StartCount: 5
+  - TypeObject: 10
+    Prefab: {fileID: 1308799161445772832, guid: 42cee5993cbb7074aa91bfa04c4e26c9, type: 3}
+    StartCount: 5
+  - TypeObject: 11
+    Prefab: {fileID: 1401300886200610447, guid: 8f84411f90c783f46a650adb77de4446, type: 3}
+    StartCount: 5
+  - TypeObject: 12
+    Prefab: {fileID: 4253208095528017263, guid: 64abc4f91b54994498d281eb70d0c70f, type: 3}
+    StartCount: 2
 --- !u!4 &50701755
 Transform:
   m_ObjectHideFlags: 0
@@ -2478,13 +2499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd37569706716334c9aa08cc7a3275d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabGrid: {fileID: 100000, guid: e5261c64b0b362240b00537d11bc82be, type: 3}
-  _water: {fileID: -7500858326003206694, guid: c4cca001ded1c26479932e96c43ff2de, type: 3}
   _pathNodes: []
   _placePlayer: {fileID: 0}
-  _woodWall: {fileID: 5430552175080372912, guid: d5ce76dd942b982438ba4a85d24bb9e4, type: 3}
-  _steelWall: {fileID: 4991437539065556737, guid: b0a35188ef0549145ab8e4a0de2e8288, type: 3}
-  _bridge: {fileID: 6722850338649119329, guid: 00eca4f45b4a10a45a59718500f4f43d, type: 3}
 --- !u!4 &1299127817
 Transform:
   m_ObjectHideFlags: 0
@@ -3493,6 +3509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae131935918fc9646808e794022dceea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae131935918fc9646808e794022dceea, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3568,7 +3588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3cdf4f3a5878c49bc2ce9fbab4aca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _place: {fileID: 0}
 --- !u!54 &2105309888
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3597,7 +3616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1142c1f8014a4a04fa36d4cb61398af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentBomb: 1
+  _currentBomb: 3
   _countBomb: 2
   _uiManager: {fileID: 933167920}
   _level: {fileID: 322222164}

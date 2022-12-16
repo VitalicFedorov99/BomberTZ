@@ -8,26 +8,26 @@ using Bomber.Pathfinder;
 public class Water : MonoBehaviour
 {
     [SerializeField] private GameObject _IceBlock;
-    [SerializeField] private StateWaterBlock _state;
+    [SerializeField] private TypeObjectOnWater _type;
 
-    public StateWaterBlock GetStateWaterBlock() 
+    public TypeObjectOnWater GetTypeObjectOnWater() 
     {
-        return _state;
+        return _type;
     }
 
     public void CreateIce() 
     {
             IceSwitch(true);
-            _state = StateWaterBlock.Ice;
+            _type = TypeObjectOnWater.Ice;
             GetComponent<PathNode>().SetStatePathNode(StatePathNode.Walkable);
     }
 
     public void DestroyIce() 
     {
-        if (_state == StateWaterBlock.Ice)
+        if (_type == TypeObjectOnWater.Ice)
         {
             IceSwitch(false);
-            _state = StateWaterBlock.Nun;
+            _type = TypeObjectOnWater.Nun;
             GetComponent<PathNode>().SetStatePathNode(StatePathNode.NoWalkable);
         }
     }
@@ -39,7 +39,7 @@ public class Water : MonoBehaviour
 }
 
 
-public enum StateWaterBlock 
+public enum TypeObjectOnWater 
 {
     Nun,
     Ice,
