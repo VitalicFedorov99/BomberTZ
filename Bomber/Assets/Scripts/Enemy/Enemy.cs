@@ -25,27 +25,12 @@ namespace Bomber.Enemies
         private MoveEnemy _move;
 
 
-        private void Update()
-        {
-            if (!_isDead)
-            {
-
-                if (_flagCDAttak)
-                {
-                    CheckPlayerForAttack();
-                }
-                if (transform.position.y < -1f)
-                {
-                    Die();
-                }
-            }
-            
-        }
         public void Setup(Player player)
         {
             _player = player;
             _animationEnemy = GetComponent<AnimationEnemy>();
             _animationEnemy.Setup();
+      
             _move= GetComponent<MoveEnemy>();
             _move.Setup(_player);
             _isDead = false;
@@ -62,6 +47,23 @@ namespace Bomber.Enemies
             StopAllCoroutines();
             _animationEnemy.StateDie();
             StartCoroutine(CoroutineDead());
+        }
+
+        private void Update()
+        {
+            if (!_isDead)
+            {
+
+                if (_flagCDAttak)
+                {
+                    CheckPlayerForAttack();
+                }
+                if (transform.position.y < -1f)
+                {
+                    Die();
+                }
+            }
+
         }
 
         private void CheckPlayerForAttack()

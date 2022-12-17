@@ -11,7 +11,6 @@ namespace Bomber.Global
         public void Restart()
         {
             _setuper.Restart();
-            //SceneManager.LoadScene(Constant.SceneGame);
         }
 
         public void Menu()

@@ -98,7 +98,7 @@ namespace Bomber.Global
         }
 
 
-        IEnumerator CoroutineClear()
+        private IEnumerator CoroutineClear()
         {
             _player.gameObject.SetActive(false);
             _uiManager.UpdateTimer(0);
@@ -109,7 +109,7 @@ namespace Bomber.Global
             StartCoroutine(CoroutineStartGame());
         }
 
-        IEnumerator CoroutineStartGame()
+        private IEnumerator CoroutineStartGame()
         {
             _twennersInGame.Nextlevel(_numberLevel);
             yield return new WaitForSeconds(_timeStartGame);

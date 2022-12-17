@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockData : MonoBehaviour
+
+namespace Bomber.Grid
 {
-    [SerializeField] private TypeBlock _type;
-    
-    public TypeBlock GetTypeBlock() 
+    public class BlockData : MonoBehaviour
     {
-        return _type;
+        [SerializeField] private TypeBlock _type;
+
+        public TypeBlock GetTypeBlock()
+        {
+            return _type;
+        }
     }
-}
 
 
-public enum TypeBlock 
-{
-    Ground,
-    Water
+    public enum TypeBlock
+    {
+        Ground,
+        Water
+    }
 }

@@ -16,11 +16,11 @@ namespace Bomber.Grid
 
         [SerializeField] private List<PathNode> _pathNodes;
 
+        [SerializeField] private GameObject _placePlayer;
+
         private Level _level;
         private FactoryEnemy _factoryEnemy;
         private LevelManager _levelManager;
-
-        [SerializeField] private GameObject _placePlayer;
 
 
         public void Setup(Level currentLevel, FactoryEnemy factoryEnemy, LevelManager levelManager)
@@ -37,6 +37,7 @@ namespace Bomber.Grid
 
                     var cell = ObjectPool.instance.GetObject(_level.Blocks[i * _level.SizeLevel.y + j].TypeBlockInObjectPool);
                     _pathNodes.Add(cell.GetComponent<PathNode>());
+                    cell.GetComponent<PathNode>().ClearNeighbours();
                     if (cell.TryGetComponent(out Water water))
                     {
                         SetupWaterBlock(water, i, j);

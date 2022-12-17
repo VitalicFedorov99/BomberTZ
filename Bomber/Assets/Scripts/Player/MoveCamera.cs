@@ -11,7 +11,6 @@ public class MoveCamera : MonoBehaviour
         _deltaPos = transform.position - _objectFollow.position; 
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position = _objectFollow.position + _deltaPos;

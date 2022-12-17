@@ -46,10 +46,6 @@ namespace Bomber.Enemies
             StartCoroutine(_coroutineThink);
         }
 
-
-
-
-
         private IEnumerator CoroutineMove(List<PathNode> wayPoints)
         {
             if (wayPoints.Count > 1)

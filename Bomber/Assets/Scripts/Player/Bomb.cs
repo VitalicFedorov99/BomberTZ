@@ -12,14 +12,15 @@ namespace Bomber.PlayerSystem
 {
     public class Bomb : MonoBehaviour, IPooledObject
     {
+        public virtual TypeObjectInPool TypeObject => TypeObjectInPool.Bomb;
+       
         [SerializeField] private float _timer;
         [SerializeField] private TypeObjectInPool _typeEffect;
 
 
-        protected List<RaycastHit> _listBangs;
         private LocatePosition _locatePosition;
         private AudioSource _audio;
-        public virtual TypeObjectInPool TypeObject => TypeObjectInPool.Bomb;
+        protected List<RaycastHit> _listBangs;
 
         public void Setup()
         {
@@ -27,6 +28,11 @@ namespace Bomber.PlayerSystem
             _audio = GetComponent<AudioSource>();
             _listBangs = new List<RaycastHit>();
             StartCoroutine(CoroutuneBang());
+        }
+
+        public void DestroyObject()
+        {
+            ObjectPool.instance.DestroyObject(gameObject);
         }
 
 
@@ -103,7 +109,7 @@ namespace Bomber.PlayerSystem
             {
                 var effect = ObjectPool.instance.GetObject(_typeEffect);
                 effect.GetComponent<Effects>().Setup();
-                effect.GetComponent<Effects>().CreateEffect(hit.transform,transform);
+                effect.GetComponent<Effects>().CreateEffect(hit.transform);
             }
             DestroyObject();
 
@@ -118,10 +124,7 @@ namespace Bomber.PlayerSystem
             Bang();
         }
 
-        public void DestroyObject()
-        {
-            ObjectPool.instance.DestroyObject(gameObject);
-        }
+       
 
 
     }

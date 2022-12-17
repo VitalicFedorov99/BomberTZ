@@ -16,10 +16,6 @@ namespace Bomber.Menu
             Application.Quit();
         }
 
-        private void Start()
-        {
-            Time.timeScale = 1;
-        }
         public void ClosePanelLevel()
         {
             StartCoroutine(CoroutineONOffPanel());
@@ -44,6 +40,10 @@ namespace Bomber.Menu
             }
         }
 
+        private void Start()
+        {
+            Time.timeScale = 1;
+        }
         private IEnumerator CoroutineONOffPanel()
         {
             _panelAgainstRaycast.SetActive(true);

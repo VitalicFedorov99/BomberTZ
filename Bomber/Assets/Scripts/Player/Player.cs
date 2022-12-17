@@ -30,14 +30,14 @@ namespace Bomber.PlayerSystem
 
         }
 
-        public void UpdatePlayer() 
+        public void UpdatePlayer()
         {
             _health = _maxHealth;
             _uiManager.UpdateHealth(_health);
             _flagCreateBomb = true;
         }
-        
-        
+
+
         public TypeObjectInPool GetCurrentBomb()
         {
             return _currentBomb;
@@ -66,18 +66,7 @@ namespace Bomber.PlayerSystem
             _uiManager.UpdateWeapon(_numberCurrentBomb);
         }
 
-        private void ChooseWeapon(int number)
-        {
-            switch (number)
-            {
-                case 0:
-                    _currentBomb = _bomb;
-                    break;
-                case 1:
-                    _currentBomb = _iceBomb;
-                    break;
-            }
-        }
+
 
         public void AddStar()
         {
@@ -99,13 +88,13 @@ namespace Bomber.PlayerSystem
         {
             _playerAnimation.StateWalk(flag);
         }
-        
-        public bool GetFlagCreateBomb() 
+
+        public bool GetFlagCreateBomb()
         {
             return _flagCreateBomb;
         }
 
-        public void CreateBomb() 
+        public void CreateBomb()
         {
             _flagCreateBomb = false;
             StartCoroutine(CoroutineCooldown());
@@ -124,6 +113,19 @@ namespace Bomber.PlayerSystem
             }
         }
 
+
+        private void ChooseWeapon(int number)
+        {
+            switch (number)
+            {
+                case 0:
+                    _currentBomb = _bomb;
+                    break;
+                case 1:
+                    _currentBomb = _iceBomb;
+                    break;
+            }
+        }
         private IEnumerator CoroutineCooldown()
         {
             _flagCreateBomb = false;

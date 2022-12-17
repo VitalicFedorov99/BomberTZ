@@ -7,12 +7,8 @@ namespace Bomber.Pathfinder
 {
     public class PathFinder : MonoBehaviour
     {
-        [SerializeField] private List<PathNode> _toSearch;
-        [SerializeField] private List<PathNode> _processed;
-
-
-
-
+        private List<PathNode> _toSearch;
+        private List<PathNode> _processed;
         public void FindPath(PathNode startPoint, PathNode endPoint, out List<PathNode> listResult)
         {
             _toSearch = new List<PathNode> { startPoint };
@@ -24,7 +20,6 @@ namespace Bomber.Pathfinder
             {
                 if (_toSearch.Count == 0)
                 {
-                    Debug.Log("Спасаюсь");
                     break;
                 }
                 currentHex = _toSearch[0];

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bomber.Grid;
 
 
 public class LocatePosition : MonoBehaviour

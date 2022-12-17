@@ -22,12 +22,7 @@ namespace Bomber.Global
 
         [SerializeField] private Setuper _setuper;
         public void LoseGame()
-        {
-            //_setuper.StopAudio();
-            //_audio.clip = _loseSound;
-            //_audio.gameObject.SetActive(true);
-            //_audio.Play();
-           
+        {  
             _canvasEndGame.SetActive(true);
             _lose.SetActive(true);
             _pause.OnPause();

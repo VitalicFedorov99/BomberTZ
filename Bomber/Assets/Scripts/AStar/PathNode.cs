@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Bomber.Pathfinder
 {
-
     public class PathNode : MonoBehaviour
     {
         [SerializeField] private StatePathNode _state;
@@ -29,6 +28,11 @@ namespace Bomber.Pathfinder
         public List<PathNode> GetNeighbours()
         {
             return _neighbours;
+        }
+
+        public void ClearNeighbours() 
+        {
+            _neighbours.Clear();
         }
     }
 
