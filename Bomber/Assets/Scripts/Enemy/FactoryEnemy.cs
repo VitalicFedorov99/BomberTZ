@@ -12,9 +12,9 @@ namespace Bomber.Enemies
     public class FactoryEnemy : MonoBehaviour
     {
 
-        [SerializeField] private float _time;
         private Player _player;
-        private List<Transform> _places;
+        [SerializeField] private float _time;
+        [SerializeField] private List<Transform> _places;
 
         public void Setup(Player player)
         {
@@ -40,6 +40,11 @@ namespace Bomber.Enemies
                 enemy.transform.position = new Vector3(_places[rand].position.x, _places[rand].position.y + 0.3f, _places[rand].position.z);
                 enemy.GetComponent<Enemy>().Setup(_player);
             }
+        }
+
+        public void StopFactory() 
+        {
+            StopAllCoroutines();
         }
 
         private IEnumerator CoroutineSpawn()

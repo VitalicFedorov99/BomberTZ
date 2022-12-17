@@ -6,19 +6,33 @@ namespace Bomber.Global
 {
     public class Timer : MonoBehaviour
     {
-        [SerializeField] private float _timer;
         [SerializeField] private UIManager _ui;
+        private float _timer;
+        private bool _isWork = false;
 
 
-        private void Update()
+        public void Reset()
         {
-            _timer += Time.deltaTime;
-            _ui.UpdateTimer(_timer);
+            _isWork = true;
+            _timer = 0;
+        }
+
+        public void Stop()
+        {
+            _isWork = false;
         }
 
         public float GetTimer()
         {
             return _timer;
+        }
+        private void Update()
+        {
+            if (_isWork)
+            {
+                _timer += Time.deltaTime;
+                _ui.UpdateTimer(_timer);
+            }
         }
 
     }

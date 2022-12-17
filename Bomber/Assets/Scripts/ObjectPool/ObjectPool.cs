@@ -14,6 +14,7 @@ namespace Bomber.ObjectPooled
 
         [SerializeField] private Dictionary<TypeObjectInPool, Pool> _pools;
 
+        [SerializeField] private List<GameObject> _allActiveObjects= new List<GameObject>();
         private void Awake()
         {
             instance = this;
@@ -52,15 +53,29 @@ namespace Bomber.ObjectPooled
                 obj = InstantiateObject(type, _pools[type].Container);
             }
             obj.SetActive(true);
-
+            _allActiveObjects.Add(obj);
             return obj;
         }
 
         public void DestroyObject(GameObject obj)
         {
             _pools[obj.GetComponent<IPooledObject>().TypeObject].Objects.Enqueue(obj);
+            _allActiveObjects.Remove(obj);
             obj.SetActive(false);
         }
+
+
+        public void DestroyAll() 
+        {
+            foreach(GameObject obj in _allActiveObjects) 
+            {
+                _pools[obj.GetComponent<IPooledObject>().TypeObject].Objects.Enqueue(obj);
+                obj.SetActive(false);
+            }
+
+            _allActiveObjects.Clear();           
+        }
+        
 
         private GameObject InstantiateObject(TypeObjectInPool type, Transform parent)
         {

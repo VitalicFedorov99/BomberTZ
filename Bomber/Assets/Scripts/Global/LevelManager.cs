@@ -19,6 +19,8 @@ namespace Bomber.Global
             _numberLevel = level;
             _timer = timer;
             _victoryOrLose = victoryOrLose;
+            _maxStars = 0;
+            _counterStars = 0;
         }
 
         public int GetMaxStars()

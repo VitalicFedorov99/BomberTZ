@@ -13,10 +13,12 @@ namespace Bomber.PlayerSystem
         [SerializeField] private int _countBomb;
         [SerializeField] private UIManager _uiManager;
         [SerializeField] private LevelManager _level;
-        [SerializeField] private int _health = 5;
         [SerializeField] private TwennersInGame _twennersInGame;
+        [SerializeField] private int _maxHealth;
+        [SerializeField] private float _cooldown;
 
-
+        private bool _flagCreateBomb = true;
+        private int _health;
         private int _numberCurrentBomb = 0;
         private PlayerAnimation _playerAnimation;
         private TypeObjectInPool _bomb = TypeObjectInPool.Bomb;
@@ -25,8 +27,17 @@ namespace Bomber.PlayerSystem
         public void Setup()
         {
             _playerAnimation = GetComponent<PlayerAnimation>();
+
         }
 
+        public void UpdatePlayer() 
+        {
+            _health = _maxHealth;
+            _uiManager.UpdateHealth(_health);
+            _flagCreateBomb = true;
+        }
+        
+        
         public TypeObjectInPool GetCurrentBomb()
         {
             return _currentBomb;
@@ -44,7 +55,6 @@ namespace Bomber.PlayerSystem
             }
             _uiManager.UpdateHealth(_health);
         }
-
         public void NextWeapon()
         {
             _numberCurrentBomb++;
@@ -89,7 +99,17 @@ namespace Bomber.PlayerSystem
         {
             _playerAnimation.StateWalk(flag);
         }
-  
+        
+        public bool GetFlagCreateBomb() 
+        {
+            return _flagCreateBomb;
+        }
+
+        public void CreateBomb() 
+        {
+            _flagCreateBomb = false;
+            StartCoroutine(CoroutineCooldown());
+        }
 
         private void Update()
         {
@@ -98,10 +118,18 @@ namespace Bomber.PlayerSystem
 
         private void CheckFailed()
         {
-            if (transform.position.y <= 0)
+            if (transform.position.y <= -0.4f)
             {
-                Die();
+                TakeDamage(1000);
             }
+        }
+
+        private IEnumerator CoroutineCooldown()
+        {
+            _flagCreateBomb = false;
+            yield return new WaitForSeconds(_cooldown);
+            _flagCreateBomb = true;
+
         }
     }
 }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Bomber.Pathfinder;
+using Bomber.ObjectPooled;
 
-
-public class Water : MonoBehaviour
+public class Water : MonoBehaviour, IPooledObject
 {
     [SerializeField] private GameObject _IceBlock;
     [SerializeField] private TypeObjectOnWater _type;
+
+    public TypeObjectInPool TypeObject => TypeObjectInPool.Water;
 
     public TypeObjectOnWater GetTypeObjectOnWater() 
     {
@@ -35,6 +37,11 @@ public class Water : MonoBehaviour
     private void IceSwitch(bool flag) 
     {
         _IceBlock.SetActive(flag);
+    }
+
+    public void DestroyObject()
+    {
+        ObjectPool.instance.DestroyObject(gameObject);
     }
 }
 

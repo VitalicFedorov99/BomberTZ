@@ -718,7 +718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3cdf4f3a5878c49bc2ce9fbab4aca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _place: {fileID: 0}
 --- !u!114 &2204318213636419733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,6 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeCooldowmAttack: 2
   _timeDie: 1
+  _type: 2
 --- !u!114 &-8908524711882935033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +772,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 2
-  _playerPosition: {fileID: 0}
   _wayPoints: []
   _timeIntervalSearchWay: 2
 --- !u!65 &4257861031196604546

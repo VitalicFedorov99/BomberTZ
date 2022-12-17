@@ -14,7 +14,7 @@ namespace Bomber.Grid
 
 
 
-        [SerializeField] private List<PathNode> _pathNodes = new List<PathNode>();
+        [SerializeField] private List<PathNode> _pathNodes;
 
         private Level _level;
         private FactoryEnemy _factoryEnemy;
@@ -25,6 +25,8 @@ namespace Bomber.Grid
 
         public void Setup(Level currentLevel, FactoryEnemy factoryEnemy, LevelManager levelManager)
         {
+           
+            _pathNodes = new List<PathNode>();
             _level = currentLevel;
             _factoryEnemy = factoryEnemy;
             _levelManager = levelManager;
@@ -62,6 +64,9 @@ namespace Bomber.Grid
                 case TypeObjectOnWater.Ice:
                     water.CreateIce();
                     break;
+                case TypeObjectOnWater.Nun:
+                    water.DestroyIce();
+                    break;
 
             }
         }
@@ -73,9 +78,11 @@ namespace Bomber.Grid
             {
                 case TypeObjectOnGround.WoodenWall:
                     CreateObject(TypeObjectInPool.WoodWall, ground.transform, 1);
+                    ground.GetComponent<PathNode>().SetStatePathNode(StatePathNode.NoWalkable);
                     break;
                 case TypeObjectOnGround.MetalWall:
                     CreateObject(TypeObjectInPool.MetalWall, ground.transform, 0.5f);
+                    ground.GetComponent<PathNode>().SetStatePathNode(StatePathNode.NoWalkable);
                     break;
                 case TypeObjectOnGround.SpawnerEnemy:
                     CreateObject(TypeObjectInPool.EnemySpawn, ground.transform, 0);

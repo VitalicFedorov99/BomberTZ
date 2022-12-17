@@ -9,9 +9,6 @@ namespace Bomber.PlayerSystem
 {
     public class InputHero : MonoBehaviour
     {
-
-
-        [SerializeField] private float _cooldown;
         [SerializeField] private float _speed;
 
 
@@ -19,7 +16,6 @@ namespace Bomber.PlayerSystem
         private Player _player;
         private Vector3 _direction = Vector3.zero;
         private Vector3 _movement = Vector3.zero;
-        private bool _flagCreateBomb = true;
       
 
 
@@ -40,13 +36,12 @@ namespace Bomber.PlayerSystem
       
         public void CreateBomb()
         {
-            if (_flagCreateBomb)
+            if (_player.GetFlagCreateBomb())
             {
-                _flagCreateBomb = false;
                 var bomb = ObjectPool.instance.GetObject(_player.GetCurrentBomb());
                 bomb.transform.position = transform.position;
                 bomb.GetComponent<Bomb>().Setup();
-                StartCoroutine(CoroutineCooldown());
+                _player.CreateBomb();
             }
         }
 
@@ -105,16 +100,6 @@ namespace Bomber.PlayerSystem
                         break;
                 }
         }
-
-        private IEnumerator CoroutineCooldown()
-        {
-            _flagCreateBomb = false;
-            yield return new WaitForSeconds(_cooldown);
-            _flagCreateBomb = true;
-
-        }
-
-       
     }
 }
 

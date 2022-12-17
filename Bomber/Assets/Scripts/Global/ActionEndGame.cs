@@ -7,15 +7,21 @@ namespace Bomber.Global
 {
     public class ActionEndGame : MonoBehaviour
     {
-
+        [SerializeField] private Setuper _setuper;
         public void Restart()
         {
-            SceneManager.LoadScene(Constant.SceneGame);
+            _setuper.Restart();
+            //SceneManager.LoadScene(Constant.SceneGame);
         }
 
         public void Menu()
         {
             SceneManager.LoadScene(Constant.SceneMenu);
+        }
+
+        public void NextLevel() 
+        {
+            _setuper.NumberLevelInc();
         }
     }
 }

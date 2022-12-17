@@ -22,34 +22,105 @@ namespace Bomber.Global
         [SerializeField] private Pause _pause;
         [SerializeField] private VictoryOrLose _victoryOrLose;
         [SerializeField] private Timer _timer;
-
+        [SerializeField] private TwennersInGame _twennersInGame;
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private float _timeClear;
+        [SerializeField] private float _timeStartGame;
         [Header("Levels")]
         [SerializeField] private Level[] _levels;
+
         private int _numberLevel;
 
-        private void Start()
+        public void NextLevel()
         {
-            _pause.OffPause(); 
-            _numberLevel = PlayerPrefs.GetInt(Constant.CurrentLevel, 0);
-            SetupSystem();
-            SetupPlayer();
-            _factoryEnemy.StartSpawned();
-        }
-
-        private void SetupSystem() 
-        {
-            _objectPool.InitPool();
+            _pause.OffPause();
+            _numberLevel = PlayerPrefs.GetInt(Constant.CurrentLevel);
+            _levelManager.Setup(_numberLevel, _timer, _victoryOrLose);
+            _twennersInGame.SwitchActiveImageLoad(false);
             _factoryEnemy.Setup(_player);
             _generatorGrid.Setup(_levels[_numberLevel - 1], _factoryEnemy, _levelManager);
             _uiManager.UpdateCountStars(0, _levelManager.GetMaxStars());
-            _levelManager.Setup(_numberLevel, _timer, _victoryOrLose);
+
+        }
+
+        public void StopAudio()
+        {
+            _audio.Stop();
+        }
+        public void NumberLevelInc()
+        {
+            _twennersInGame.SwitchActiveImageLoad(true);
+            _pause.OffPause();
+            PlayerPrefs.SetInt(Constant.CurrentLevel, _numberLevel + 1);
+            ObjectPool.instance.DestroyAll();
+            _victoryOrLose.OffCanvas();
+            StartCoroutine(CoroutineClear());
+        }
+
+        public int GetCountLevels()
+        {
+            return _levels.Length;
+        }
+
+        public void Restart()
+        {
+            _audio.Stop();
+            _twennersInGame.SwitchActiveImageLoad(true);
+            _pause.OffPause();
+            ObjectPool.instance.DestroyAll();
+            _victoryOrLose.OffCanvas();
+            StartCoroutine(CoroutineClear());
+        }
+
+        private void Start()
+        {
+
+            SetupSystem();
+            _twennersInGame.SwitchActiveImageLoad(true);
+            StartCoroutine(CoroutineClear());
+        }
+
+        private void SetupSystem()
+        {
+            _objectPool.InitPool();
+            _player.Setup();
+
+
         }
 
         private void SetupPlayer()
         {
+
             var place = _generatorGrid.GetStartPoint();
             _player.transform.position = new Vector3(place.transform.position.x, place.transform.position.y + 1, place.transform.position.z);
-            _player.Setup();
+            _player.gameObject.SetActive(true);
+            _player.UpdatePlayer();
         }
+
+
+        IEnumerator CoroutineClear()
+        {
+            _player.gameObject.SetActive(false);
+            _uiManager.UpdateTimer(0);
+            _uiManager.UpdateCountStars(0, 3);
+            _factoryEnemy.StopFactory();
+            yield return new WaitForSeconds(_timeClear);
+            NextLevel();
+            StartCoroutine(CoroutineStartGame());
+        }
+
+        IEnumerator CoroutineStartGame()
+        {
+            _twennersInGame.Nextlevel(_numberLevel);
+            yield return new WaitForSeconds(_timeStartGame);
+            SetupPlayer();
+            _timer.Reset();
+            _factoryEnemy.StartSpawned();
+            _audio.Play();
+        }
+
+
+
+
     }
 }

@@ -34,7 +34,6 @@ namespace Bomber.PlayerSystem
         {
             if (hit.collider.TryGetComponent(out Water water))
             {
-                Debug.Log("Нашел воду");
                 if (!_listBangs.Contains(hit))
                 {
                     _listBangs.Add(hit);
@@ -50,7 +49,7 @@ namespace Bomber.PlayerSystem
 
                 }
                 wall.GetComponent<LocatePosition>().SearchPlace().GetComponent<PathNode>().SetStatePathNode(StatePathNode.Walkable);
-                Destroy(wall.gameObject);
+                ObjectPool.instance.DestroyObject(wall.gameObject);
 
             }
             if (hit.collider.TryGetComponent(out Enemy enemy))
@@ -82,7 +81,7 @@ namespace Bomber.PlayerSystem
         }
         private void Bang()
         {
-           
+
 
             var place = _locatePosition.SearchPlace();
             var neighbours = place.GetComponent<PathNode>().GetNeighbours();
@@ -93,7 +92,6 @@ namespace Bomber.PlayerSystem
                 var objectsHits = neighbour.GetComponent<LocatePosition>().SearchObjects();
                 foreach (var obj in objectsHits)
                 {
-
                     Interactions(obj);
                 }
             }
@@ -105,7 +103,7 @@ namespace Bomber.PlayerSystem
             {
                 var effect = ObjectPool.instance.GetObject(_typeEffect);
                 effect.GetComponent<Effects>().Setup();
-                effect.GetComponent<Effects>().CreateEffect(hit.transform);
+                effect.GetComponent<Effects>().CreateEffect(hit.transform,transform);
             }
             DestroyObject();
 
@@ -113,8 +111,8 @@ namespace Bomber.PlayerSystem
 
         private IEnumerator CoroutuneBang()
         {
-           
-            yield return new WaitForSeconds(_timer-0.3f);
+
+            yield return new WaitForSeconds(_timer - 0.3f);
             _audio.Play();
             yield return new WaitForSeconds(0.3f);
             Bang();

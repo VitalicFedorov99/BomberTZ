@@ -16,9 +16,10 @@ public class Effects : MonoBehaviour, IPooledObject
     {
         _particle = GetComponent<ParticleSystem>();
     }
-    public void CreateEffect(Transform pos) 
+    public void CreateEffect(Transform pos, Transform _posBomb) 
     {
         transform.position = pos.position;
+        if (Vector3.Distance(_posBomb.position, pos.position) < 3f) ;
         _particle.Play();
         StartCoroutine(CoroutineTimerEffect());
     }

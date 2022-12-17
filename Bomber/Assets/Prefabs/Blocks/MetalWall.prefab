@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4991437539065556738}
   - component: {fileID: 4991437539065556739}
   - component: {fileID: 4991437539065556736}
+  - component: {fileID: 5660539801995576319}
+  - component: {fileID: -3882731458018443801}
   m_Layer: 0
   m_Name: MetalWall
   m_TagString: Untagged
@@ -97,3 +99,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5660539801995576319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4991437539065556737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20eaaa6ae3fb3984181b868a4f32b04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3882731458018443801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4991437539065556737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3cdf4f3a5878c49bc2ce9fbab4aca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

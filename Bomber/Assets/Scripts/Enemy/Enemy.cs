@@ -17,7 +17,7 @@ namespace Bomber.Enemies
         [SerializeField] private float _timeCooldowmAttack;
         [SerializeField] private float _timeDie;
 
-        private TypeObjectInPool _type;
+        [SerializeField] private TypeObjectInPool _type;
         private AnimationEnemy _animationEnemy;
         private bool _isDead = false;
         private bool _flagCDAttak = true;

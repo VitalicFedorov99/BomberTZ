@@ -44,7 +44,7 @@ namespace Bomber.PlayerSystem
 
                 }
                 wall.GetComponent<LocatePosition>().SearchPlace().GetComponent<PathNode>().SetStatePathNode(StatePathNode.Walkable);
-                Destroy(wall.gameObject);
+                ObjectPool.instance.DestroyObject(wall.gameObject);
             }
             if (hit.collider.TryGetComponent(out Player player))
             {
